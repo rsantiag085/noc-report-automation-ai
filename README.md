@@ -14,13 +14,13 @@ Desenvolvi um agente autônomo rodando na nuvem do Google (Apps Script) que moni
 * **Interpretação Semântica:** Transforma texto desestruturado (ex: "link caiu 10 min") em dados estruturados com status visual (🟢/🟡/🔴).
 * **Validação Temporal:** Mecanismo de *Time-Check* que impede o processamento de arquivos antigos (regra de < 59 min), economizando recursos.
 * **Geração de PDF Nativa:** Criação dinâmica de tabelas, cabeçalhos e formatação visual via código.
-* **Entrega Automática:** Envio do relatório final por e-mail.
+* **Entrega Automática:** Envio do relatório final por e-mail para os stakeholders.
 
 ## 🛠️ Arquitetura do Projeto
 
 O fluxo de dados segue a seguinte esteira de automação:
 
-1.  **Trigger:** O script é iniciado conforme o agendamento (Cron Job).
+1.  **Acionador:** O script acorda a cada hora (Cron Job).
 2.  **Validação:** Verifica se o arquivo `modelo de relatório` foi modificado recentemente.
 3.  **Processamento (LLM):** Envia o texto bruto para a API do **Google Gemini 2.0 Flash**.
 4.  **Estruturação (JSON):** A IA retorna um objeto JSON estrito com os incidentes categorizados.
@@ -42,3 +42,41 @@ REGRAS:
 - Classifique "Lentidão pontual" como 🟡 Atenção.
 - Se não houver dados, preencha com "Sem alterações" e status 🟢.
 `;
+
+```
+
+## ⚙️ Configuração Técnica
+
+### Pré-requisitos
+
+* Conta Google (Pessoal ou Workspace).
+* API Key do Google AI Studio.
+
+### Instalação
+
+1. Crie um novo projeto no [Google Apps Script](script.google.com).
+2. Copie o código fonte do arquivo `Código.gs`.
+3. Defina as variáveis de ambiente no início do script:
+```javascript
+const CONFIG = {
+  API_KEY: "SUA_CHAVE_AQUI",
+  ID_PASTA_RAIZ: "ID_DA_SUA_PASTA_DRIVE",
+  ...
+};
+
+```
+
+
+4. Configure um acionador para rodar `processarERelatarPlantao` conforme a sua necessidade.
+
+## 📊 Resultados
+
+| Antes (Manual) | Depois (Automático) |
+| --- | --- |
+| ~20 min para formatar e enviar | **0 min** (Automático) |
+| Erros de digitação frequentes | **Correção gramatical via IA** |
+| Layout inconsistente | **Padrão corporativo garantido** |
+
+---
+
+*Desenvolvido por Robson Santiago*
