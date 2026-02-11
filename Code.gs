@@ -1,5 +1,5 @@
 /**
- * Idealizado por: @rsantiag095
+ * Criado por: rsantiag085
  * Prompt por: luanouts
  */
 
